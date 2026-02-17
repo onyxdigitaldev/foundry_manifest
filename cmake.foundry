@@ -1,0 +1,24 @@
+[package]
+name = "cmake"
+description = "Cross-platform build system generator"
+homepage = "https://cmake.org"
+license = "BSD-3-Clause"
+
+[source]
+type = "git"
+url = "https://github.com/Kitware/CMake.git"
+tag = "v3.31.4"
+
+[build]
+system = "custom"
+jobs = "auto"
+inline = """
+./bootstrap --prefix=${FOUNDRY_PREFIX} --parallel=${FOUNDRY_JOBS}
+make -j${FOUNDRY_JOBS}
+make install
+"""
+
+[deps]
+openssl = "*"
+
+[deps.build-only]

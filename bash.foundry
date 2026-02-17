@@ -1,0 +1,25 @@
+[package]
+name = "bash"
+description = "GNU Bourne Again Shell"
+homepage = "https://www.gnu.org/software/bash/"
+license = "GPL-3.0"
+
+[source]
+type = "git"
+url = "https://git.savannah.gnu.org/git/bash.git"
+tag = "bash-5.2"
+
+[build]
+system = "autotools"
+jobs = "auto"
+inline = """
+./configure --prefix=${FOUNDRY_PREFIX} --without-bash-malloc
+make -j${FOUNDRY_JOBS}
+make install
+"""
+
+[deps]
+readline = "*"
+ncurses = "*"
+
+[deps.build-only]

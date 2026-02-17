@@ -1,0 +1,24 @@
+[package]
+name = "gawk"
+description = "GNU implementation of AWK"
+homepage = "https://www.gnu.org/software/gawk/"
+license = "GPL-3.0"
+
+[source]
+type = "git"
+url = "https://git.savannah.gnu.org/git/gawk.git"
+tag = "gawk-5.3.1"
+
+[build]
+system = "autotools"
+jobs = "auto"
+inline = """
+autoreconf -fi
+./configure --prefix=${FOUNDRY_PREFIX}
+make -j${FOUNDRY_JOBS}
+make install
+"""
+
+[deps]
+
+[deps.build-only]

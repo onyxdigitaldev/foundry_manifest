@@ -1,0 +1,24 @@
+[package]
+name = "gzip"
+description = "GNU compression utility"
+homepage = "https://www.gnu.org/software/gzip/"
+license = "GPL-3.0"
+
+[source]
+type = "git"
+url = "https://git.savannah.gnu.org/git/gzip.git"
+tag = "v1.13"
+
+[build]
+system = "autotools"
+jobs = "auto"
+inline = """
+./bootstrap
+./configure --prefix=${FOUNDRY_PREFIX}
+make -j${FOUNDRY_JOBS}
+make install
+"""
+
+[deps]
+
+[deps.build-only]

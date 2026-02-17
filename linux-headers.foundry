@@ -1,0 +1,26 @@
+[package]
+name = "linux-headers"
+description = "Linux kernel headers for userspace development"
+homepage = "https://www.kernel.org"
+license = "GPL-2.0"
+
+[source]
+type = "git"
+url = "https://github.com/torvalds/linux.git"
+tag = "v6.12"
+
+[build]
+system = "make"
+jobs = "auto"
+inline = """
+make mrproper
+make headers
+find usr/include -type f ! -name '*.h' -delete
+find usr/include -type d -empty -delete
+mkdir -p ${FOUNDRY_PREFIX}/include
+cp -rv usr/include/* ${FOUNDRY_PREFIX}/include/
+"""
+
+[deps]
+
+[deps.build-only]

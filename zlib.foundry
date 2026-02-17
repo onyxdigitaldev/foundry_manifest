@@ -1,0 +1,23 @@
+[package]
+name = "zlib"
+description = "General-purpose lossless data compression library"
+homepage = "https://zlib.net"
+license = "Zlib"
+
+[source]
+type = "git"
+url = "https://github.com/madler/zlib.git"
+tag = "v1.3.1"
+
+[build]
+system = "custom"
+jobs = "auto"
+inline = """
+./configure --prefix=${FOUNDRY_PREFIX}
+make -j${FOUNDRY_JOBS}
+make install
+"""
+
+[deps]
+
+[deps.build-only]

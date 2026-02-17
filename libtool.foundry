@@ -1,0 +1,25 @@
+[package]
+name = "libtool"
+description = "Generic library support script"
+homepage = "https://www.gnu.org/software/libtool/"
+license = "GPL-2.0"
+
+[source]
+type = "git"
+url = "https://git.savannah.gnu.org/git/libtool.git"
+tag = "v2.5.4"
+
+[build]
+system = "autotools"
+jobs = "auto"
+inline = """
+./bootstrap
+./configure --prefix=${FOUNDRY_PREFIX}
+make -j${FOUNDRY_JOBS}
+make install
+"""
+
+[deps]
+
+[deps.build-only]
+automake = "*"

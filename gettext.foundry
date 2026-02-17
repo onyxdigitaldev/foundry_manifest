@@ -1,0 +1,27 @@
+[package]
+name = "gettext"
+description = "GNU internationalization framework"
+homepage = "https://www.gnu.org/software/gettext/"
+license = "GPL-3.0"
+
+[source]
+type = "git"
+url = "https://git.savannah.gnu.org/git/gettext.git"
+tag = "v0.22.5"
+
+[build]
+system = "autotools"
+jobs = "auto"
+inline = """
+git submodule update --init --recursive
+./autopull.sh
+./autogen.sh
+./configure --prefix=${FOUNDRY_PREFIX} --disable-java
+make -j${FOUNDRY_JOBS}
+make install
+"""
+
+[deps]
+ncurses = "*"
+
+[deps.build-only]

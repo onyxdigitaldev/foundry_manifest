@@ -1,0 +1,22 @@
+[package]
+name = "meson"
+description = "High-performance build system"
+homepage = "https://mesonbuild.com"
+license = "Apache-2.0"
+
+[source]
+type = "git"
+url = "https://github.com/mesonbuild/meson.git"
+tag = "1.6.1"
+
+[build]
+system = "custom"
+jobs = "auto"
+inline = """
+python3 -m pip install --prefix=${FOUNDRY_PREFIX} --no-deps --no-build-isolation .
+"""
+
+[deps]
+python = "*"
+
+[deps.build-only]

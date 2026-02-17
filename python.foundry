@@ -1,0 +1,32 @@
+[package]
+name = "python"
+description = "Python programming language"
+homepage = "https://www.python.org"
+license = "PSF-2.0"
+
+[source]
+type = "git"
+url = "https://github.com/python/cpython.git"
+tag = "v3.13.1"
+
+[build]
+system = "autotools"
+jobs = "auto"
+inline = """
+./configure --prefix=${FOUNDRY_PREFIX} \
+  --enable-shared \
+  --enable-optimizations \
+  --with-ensurepip=install
+make -j${FOUNDRY_JOBS}
+make install
+ln -sfv python3 ${FOUNDRY_PREFIX}/bin/python
+ln -sfv pip3 ${FOUNDRY_PREFIX}/bin/pip
+"""
+
+[deps]
+zlib = "*"
+openssl = "*"
+readline = "*"
+ncurses = "*"
+
+[deps.build-only]

@@ -1,0 +1,27 @@
+[package]
+name = "curl"
+description = "Command line tool and library for transferring data with URLs"
+homepage = "https://curl.se"
+license = "MIT"
+
+[source]
+type = "git"
+url = "https://github.com/curl/curl.git"
+tag = "curl-8_11_1"
+
+[build]
+system = "autotools"
+jobs = "auto"
+inline = """
+autoreconf -fi
+./configure --prefix=${FOUNDRY_PREFIX} \
+  --with-openssl
+make -j${FOUNDRY_JOBS}
+make install
+"""
+
+[deps]
+openssl = "*"
+zlib = "*"
+
+[deps.build-only]

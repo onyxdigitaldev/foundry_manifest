@@ -1,0 +1,24 @@
+[package]
+name = "make"
+description = "GNU Make build automation tool"
+homepage = "https://www.gnu.org/software/make/"
+license = "GPL-3.0"
+
+[source]
+type = "git"
+url = "https://git.savannah.gnu.org/git/make.git"
+tag = "4.4.1"
+
+[build]
+system = "autotools"
+jobs = "auto"
+inline = """
+autoreconf -fi
+./configure --prefix=${FOUNDRY_PREFIX}
+make -j${FOUNDRY_JOBS}
+make install
+"""
+
+[deps]
+
+[deps.build-only]

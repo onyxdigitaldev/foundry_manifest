@@ -1,0 +1,24 @@
+[package]
+name = "readline"
+description = "GNU command line editing library"
+homepage = "https://tiswww.case.edu/php/chet/readline/rltop.html"
+license = "GPL-3.0"
+
+[source]
+type = "git"
+url = "https://git.savannah.gnu.org/git/readline.git"
+tag = "readline-8.2"
+
+[build]
+system = "autotools"
+jobs = "auto"
+inline = """
+./configure --prefix=${FOUNDRY_PREFIX} --with-curses
+make -j${FOUNDRY_JOBS} SHLIB_LIBS="-lncursesw"
+make install SHLIB_LIBS="-lncursesw"
+"""
+
+[deps]
+ncurses = "*"
+
+[deps.build-only]

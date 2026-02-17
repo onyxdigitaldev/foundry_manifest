@@ -1,0 +1,22 @@
+[package]
+name = "bzip2"
+description = "High-quality block-sorting file compressor"
+homepage = "https://sourceware.org/bzip2/"
+license = "bzip2-1.0.6"
+
+[source]
+type = "git"
+url = "https://sourceware.org/git/bzip2.git"
+tag = "bzip2-1.0.8"
+
+[build]
+system = "make"
+jobs = "auto"
+inline = """
+make -j${FOUNDRY_JOBS} CC=gcc
+make install PREFIX=${FOUNDRY_PREFIX}
+"""
+
+[deps]
+
+[deps.build-only]

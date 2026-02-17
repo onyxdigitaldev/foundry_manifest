@@ -1,0 +1,26 @@
+[package]
+name = "perl"
+description = "Practical Extraction and Report Language"
+homepage = "https://www.perl.org"
+license = "Artistic-2.0"
+
+[source]
+type = "git"
+url = "https://github.com/Perl/perl5.git"
+tag = "v5.40.0"
+
+[build]
+system = "custom"
+jobs = "auto"
+inline = """
+sh Configure -des \
+  -Dprefix=${FOUNDRY_PREFIX} \
+  -Dusethreads \
+  -Duseshrplib
+make -j${FOUNDRY_JOBS}
+make install
+"""
+
+[deps]
+
+[deps.build-only]

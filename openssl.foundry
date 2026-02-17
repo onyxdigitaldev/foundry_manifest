@@ -1,0 +1,25 @@
+[package]
+name = "openssl"
+description = "TLS/SSL and general-purpose cryptography library"
+homepage = "https://www.openssl.org"
+license = "Apache-2.0"
+
+[source]
+type = "git"
+url = "https://github.com/openssl/openssl.git"
+tag = "openssl-3.4.0"
+
+[build]
+system = "custom"
+jobs = "auto"
+inline = """
+./Configure --prefix=${FOUNDRY_PREFIX} --openssldir=${FOUNDRY_PREFIX}/etc/ssl
+make -j${FOUNDRY_JOBS}
+make install_sw install_ssldirs
+"""
+
+[deps]
+zlib = "*"
+
+[deps.build-only]
+perl = "*"

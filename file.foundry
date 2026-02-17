@@ -1,0 +1,24 @@
+[package]
+name = "file"
+description = "File type identification utility"
+homepage = "https://www.darwinsys.com/file/"
+license = "BSD-2-Clause"
+
+[source]
+type = "git"
+url = "https://github.com/file/file.git"
+tag = "FILE5_46"
+
+[build]
+system = "autotools"
+jobs = "auto"
+inline = """
+autoreconf -fi
+./configure --prefix=${FOUNDRY_PREFIX}
+make -j${FOUNDRY_JOBS}
+make install
+"""
+
+[deps]
+
+[deps.build-only]

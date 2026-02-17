@@ -1,0 +1,22 @@
+[package]
+name = "zstd"
+description = "Fast real-time compression algorithm"
+homepage = "https://facebook.github.io/zstd/"
+license = "BSD-3-Clause"
+
+[source]
+type = "git"
+url = "https://github.com/facebook/zstd.git"
+tag = "v1.5.6"
+
+[build]
+system = "make"
+jobs = "auto"
+inline = """
+make -j${FOUNDRY_JOBS} PREFIX=${FOUNDRY_PREFIX}
+make install PREFIX=${FOUNDRY_PREFIX}
+"""
+
+[deps]
+
+[deps.build-only]

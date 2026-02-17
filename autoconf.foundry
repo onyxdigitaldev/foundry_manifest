@@ -1,0 +1,26 @@
+[package]
+name = "autoconf"
+description = "Automatic configure script builder"
+homepage = "https://www.gnu.org/software/autoconf/"
+license = "GPL-3.0"
+
+[source]
+type = "git"
+url = "https://git.savannah.gnu.org/git/autoconf.git"
+tag = "v2.72"
+
+[build]
+system = "autotools"
+jobs = "auto"
+inline = """
+autoreconf -fi
+./configure --prefix=${FOUNDRY_PREFIX}
+make -j${FOUNDRY_JOBS}
+make install
+"""
+
+[deps]
+m4 = "*"
+
+[deps.build-only]
+perl = "*"

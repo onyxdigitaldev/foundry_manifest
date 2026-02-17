@@ -1,0 +1,27 @@
+[package]
+name = "binutils"
+description = "GNU binary utilities"
+homepage = "https://www.gnu.org/software/binutils/"
+license = "GPL-3.0"
+
+[source]
+type = "git"
+url = "https://sourceware.org/git/binutils-gdb.git"
+tag = "binutils-2_43_1"
+
+[build]
+system = "autotools"
+jobs = "auto"
+inline = """
+mkdir build && cd build
+../configure --prefix=${FOUNDRY_PREFIX} \
+  --disable-nls \
+  --disable-werror \
+  --enable-gprofng=no
+make -j${FOUNDRY_JOBS}
+make install
+"""
+
+[deps]
+
+[deps.build-only]

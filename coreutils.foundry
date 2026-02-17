@@ -1,0 +1,26 @@
+[package]
+name = "coreutils"
+description = "GNU core utilities"
+homepage = "https://www.gnu.org/software/coreutils/"
+license = "GPL-3.0"
+
+[source]
+type = "git"
+url = "https://github.com/coreutils/coreutils.git"
+tag = "v9.5"
+
+[build]
+system = "autotools"
+jobs = "auto"
+inline = """
+git submodule update --init --recursive
+./bootstrap
+./configure --prefix=${FOUNDRY_PREFIX}
+make -j${FOUNDRY_JOBS}
+make install
+"""
+
+[deps]
+
+[deps.build-only]
+perl = "*"

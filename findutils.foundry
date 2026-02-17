@@ -1,0 +1,25 @@
+[package]
+name = "findutils"
+description = "GNU find, xargs, and locate"
+homepage = "https://www.gnu.org/software/findutils/"
+license = "GPL-3.0"
+
+[source]
+type = "git"
+url = "https://git.savannah.gnu.org/git/findutils.git"
+tag = "v4.10.0"
+
+[build]
+system = "autotools"
+jobs = "auto"
+inline = """
+git submodule update --init --recursive
+./bootstrap
+./configure --prefix=${FOUNDRY_PREFIX}
+make -j${FOUNDRY_JOBS}
+make install
+"""
+
+[deps]
+
+[deps.build-only]

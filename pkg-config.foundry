@@ -1,0 +1,24 @@
+[package]
+name = "pkg-config"
+description = "Helper tool for compiling applications and libraries"
+homepage = "https://www.freedesktop.org/wiki/Software/pkg-config/"
+license = "GPL-2.0"
+
+[source]
+type = "git"
+url = "https://gitlab.freedesktop.org/pkg-config/pkg-config.git"
+tag = "pkg-config-0.29.2"
+
+[build]
+system = "autotools"
+jobs = "auto"
+inline = """
+autoreconf -fi
+./configure --prefix=${FOUNDRY_PREFIX} --with-internal-glib
+make -j${FOUNDRY_JOBS}
+make install
+"""
+
+[deps]
+
+[deps.build-only]

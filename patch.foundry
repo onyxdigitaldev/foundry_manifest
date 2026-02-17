@@ -1,0 +1,25 @@
+[package]
+name = "patch"
+description = "GNU patch utility for applying diffs"
+homepage = "https://www.gnu.org/software/patch/"
+license = "GPL-3.0"
+
+[source]
+type = "git"
+url = "https://git.savannah.gnu.org/git/patch.git"
+tag = "v2.7.6"
+
+[build]
+system = "autotools"
+jobs = "auto"
+inline = """
+git submodule update --init --recursive
+./bootstrap
+./configure --prefix=${FOUNDRY_PREFIX}
+make -j${FOUNDRY_JOBS}
+make install
+"""
+
+[deps]
+
+[deps.build-only]

@@ -1,0 +1,30 @@
+[package]
+name = "git"
+description = "Distributed version control system"
+homepage = "https://git-scm.com"
+license = "GPL-2.0"
+
+[source]
+type = "git"
+url = "https://github.com/git/git.git"
+tag = "v2.47.1"
+
+[build]
+system = "make"
+jobs = "auto"
+inline = """
+make prefix=${FOUNDRY_PREFIX} \
+  NO_TCLTK=1 \
+  all -j${FOUNDRY_JOBS}
+make prefix=${FOUNDRY_PREFIX} \
+  NO_TCLTK=1 \
+  install
+"""
+
+[deps]
+curl = "*"
+openssl = "*"
+zlib = "*"
+
+[deps.build-only]
+perl = "*"

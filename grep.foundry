@@ -1,0 +1,25 @@
+[package]
+name = "grep"
+description = "GNU regular expression matcher"
+homepage = "https://www.gnu.org/software/grep/"
+license = "GPL-3.0"
+
+[source]
+type = "git"
+url = "https://git.savannah.gnu.org/git/grep.git"
+tag = "v3.11"
+
+[build]
+system = "autotools"
+jobs = "auto"
+inline = """
+git submodule update --init --recursive
+./bootstrap
+./configure --prefix=${FOUNDRY_PREFIX}
+make -j${FOUNDRY_JOBS}
+make install
+"""
+
+[deps]
+
+[deps.build-only]

@@ -1,0 +1,30 @@
+[package]
+name = "gcc"
+description = "GNU Compiler Collection"
+homepage = "https://gcc.gnu.org"
+license = "GPL-3.0"
+
+[source]
+type = "git"
+url = "https://github.com/gcc-mirror/gcc.git"
+tag = "releases/gcc-14.2.0"
+
+[build]
+system = "autotools"
+jobs = "auto"
+inline = """
+./contrib/download_prerequisites
+mkdir build && cd build
+../configure --prefix=${FOUNDRY_PREFIX} \
+  --enable-languages=c,c++ \
+  --disable-multilib \
+  --disable-bootstrap \
+  --disable-nls
+make -j${FOUNDRY_JOBS}
+make install
+"""
+
+[deps]
+binutils = "*"
+
+[deps.build-only]

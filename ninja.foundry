@@ -1,0 +1,24 @@
+[package]
+name = "ninja"
+description = "Small build system with a focus on speed"
+homepage = "https://ninja-build.org"
+license = "Apache-2.0"
+
+[source]
+type = "git"
+url = "https://github.com/ninja-build/ninja.git"
+tag = "v1.12.1"
+
+[build]
+system = "cmake"
+jobs = "auto"
+inline = """
+cmake -B build -DCMAKE_INSTALL_PREFIX=${FOUNDRY_PREFIX} -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j${FOUNDRY_JOBS}
+cmake --install build
+"""
+
+[deps]
+
+[deps.build-only]
+cmake = "*"
