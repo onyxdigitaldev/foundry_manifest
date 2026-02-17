@@ -1,0 +1,22 @@
+[package]
+name = "fastfetch"
+description = "Fast system information tool"
+homepage = "https://github.com/fastfetch-cli/fastfetch"
+license = "MIT"
+
+[source]
+type = "git"
+url = "https://github.com/fastfetch-cli/fastfetch.git"
+tag = "2.36.1"
+
+[build]
+system = "cmake"
+script = "build.sh"
+jobs = "auto"
+inline = """
+cmake -B build -DCMAKE_INSTALL_PREFIX=${FOUNDRY_PREFIX} -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j${FOUNDRY_JOBS}
+cmake --install build
+"""
+
+[deps]
